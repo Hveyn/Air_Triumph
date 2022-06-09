@@ -14,21 +14,19 @@ public class Bullet : MonoBehaviour
         rb.velocity = transform.up * bulletSpeed;
     }
 
-    private void Update()
-    {
-        if(transform.position.magnitude > 10f)
-        {
-            Destroy(gameObject);
-        }
-    }
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        Enemy enemy = hitInfo.GetComponent<Enemy>();
+        Hit_Enemy enemy = hitInfo.GetComponent<Hit_Enemy>();
         if(enemy != null)
         {
             enemy.TakeDamage(damage);
+            Destroy(gameObject);
         }
-        Debug.Log(hitInfo.name);
-        Destroy(gameObject);
+        if (hitInfo.CompareTag("Out"))
+        {
+            Destroy(gameObject);
+        }
+        //Debug.Log(hitInfo.name);
+        
     }
 }

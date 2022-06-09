@@ -5,6 +5,7 @@ using UnityEngine;
 public class FlightPlayer : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private int health = 5;
     private Vector2 direction;
     private Rigidbody2D rb;
        
@@ -22,5 +23,16 @@ public class FlightPlayer : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + direction * speed*Time.fixedDeltaTime);
+    }
+
+    public void hitDamage(int damage)
+    {
+        Debug.Log("hit");
+        health -= damage;
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
